@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Comigo?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8e1e1;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bold;
+            
+        }
+        #container {
+            position: relative;
+        }
+        #question {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #6d1c16;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yes {
+            background-color: #56a159;
+            color: white;
+        }
+        #no {
+            background-color: #d73328;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <img src="fcab46f2-d5bf-481b-818f-ccc7bafaa22c.jpeg" alt="Caixinha de Aliança" width="200">
+        <div id="question">Casa cmg?</div>
+        <button id="yes">Sim</button>
+        <button id="no">Não</button>
+    </div>
+
+    <audio id="music" src="https://www.youtube.com/watch?v=JqIHlDVqUTw" preload="auto"></audio>
+
+    <script>
+        const noButton = document.getElementById('no');
+        const yesButton = document.getElementById('yes');
+        const music = document.getElementById('music');
+
+        noButton.addEventListener('click', function() {
+            // Mover o botão "Não" para uma nova posição aleatória
+            const container = document.getElementById('container');
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const buttonWidth = noButton.clientWidth;
+            const buttonHeight = noButton.clientHeight;
+            const yesButtonWidth = yesButton.clientWidth;
+            const yesButtonHeight = yesButton.clientHeight;
+
+            let randomX, randomY;
+            let overlap = true;
+
+            // Continue tentando até encontrar uma posição que não sobreponha o botão "Sim"
+            while (overlap) {
+                randomX = Math.random() * (containerWidth - buttonWidth);
+                randomY = Math.random() * (containerHeight - buttonHeight);
+
+                // Verifica se a nova posição do botão "Não" não sobrepõe o botão "Sim"
+                overlap = !(randomX + buttonWidth < yesButton.offsetLeft || 
+                            randomX > yesButton.offsetLeft + yesButtonWidth || 
+                            randomY + buttonHeight < yesButton.offsetTop || 
+                            randomY > yesButton.offsetTop + yesButtonHeight);
+            }
+
+            noButton.style.position = 'absolute';
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        });
+
+        yesButton.addEventListener('click', function() {
+            music.play();
+            window.location.href = "https://www.youtube.com/watch?v=JqIHlDVqUTw"; // Substitua pela URL da nova página com o GIF
+        });
+    </script>
+</body>
+</html>
